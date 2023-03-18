@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: const LoginPage(),
-      themeMode: ThemeMode.light,
+      themeMode: ThemeMode.dark,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         drawerTheme: const DrawerThemeData(
@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: GoogleFonts.lato().fontFamily,
       ),
-      darkTheme: ThemeData(brightness: Brightness.dark),
+      darkTheme: ThemeData(brightness: Brightness.dark,
+      primarySwatch:Colors.deepPurple),
       routes: {
         MyRoutes.homepage: (context) => const HomePage(),
         MyRoutes.LoginRoute: (context) => const LoginPage()
