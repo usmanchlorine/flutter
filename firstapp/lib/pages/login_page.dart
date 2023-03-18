@@ -11,7 +11,8 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   String name = '';
-
+  String password = '';
+  bool change_button = false;
   @override
   Widget build(BuildContext context) {
     // ignore: prefer_const_constructors
@@ -48,7 +49,6 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: "Username",
                         ),
                         onChanged: (value) {
-                          
                           setState(() {
                             name = value;
                           });
@@ -63,33 +63,83 @@ class _LoginPageState extends State<LoginPage> {
                           hintText: "Enter the password",
                           labelText: "Password",
                         ),
+                        onChanged: (value) {
+                          password = value;
+                        },
                       ),
                       SizedBox(
                         height: 40,
                       ),
-                      ElevatedButton(
-                        onPressed: () {
+
+                      InkWell(
+                        onTap: () async {
+                          setState(() {
+                            change_button = true;
+                          });
+
+                          await Future.delayed(Duration(seconds: 1));
+
                           Navigator.pushNamed(
                               context,
                               MyRoutes
                                   .homepage); // yeh direct us page par lejaigha
+                          await Future.delayed(Duration(milliseconds:300));
+                          setState(() {
+                            change_button = false;
+                          });
                         },
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 30, vertical: 10),
-                          child: Text(
-                            "Login",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            ),
-                          ),
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 500),
+                          alignment: Alignment.center,
+                          width: change_button ? 50 : 150,
+                          height: 50,
+                          child: change_button
+                              ? Icon(
+                                  Icons.done,
+                                  color: Color.fromARGB(255, 250, 250, 249),
+                                )
+                              : Text(
+                                  "login",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    letterSpacing: 1.2,
+                                  ),
+                                ),
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurple,
+                              borderRadius: BorderRadius.circular(8)),
                         ),
-                        style: ElevatedButton.styleFrom(
-                            minimumSize: Size(100, 20),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20))),
                       ),
+
+                      // ElevatedButton(
+                      //   onPressed: () {
+                      //     if(name=='usman' && password=='1234'){
+                      //       Navigator.pushNamed(
+                      //         context,
+                      //         MyRoutes
+                      //             .homepage); // yeh direct us page par lejaigha
+
+                      //     }
+
+                      //   },
+                      //   child: Padding(
+                      //     padding: const EdgeInsets.symmetric(
+                      //         horizontal: 30, vertical: 10),
+                      //     child: Text(
+                      //       "Login",
+                      //       style: TextStyle(
+                      //         fontWeight: FontWeight.bold,
+                      //         fontSize: 18,
+                      //       ),
+                      //     ),
+                      //   ),
+                      //   style: ElevatedButton.styleFrom(
+                      //       minimumSize: Size(100, 20),
+                      //       shape: RoundedRectangleBorder(
+                      //           borderRadius: BorderRadius.circular(20))),
+                      // ),
                     ],
                   ),
                 )
